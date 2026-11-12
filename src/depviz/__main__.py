@@ -2,8 +2,10 @@
 
 import sys
 
-from .apt_index import RepoError, load_index
+from .apt_index import RepoError
 from .cli import ConfigError, parse_args
+from .graph import GraphError, build_graph, format_graph
+from .sources import make_source
 
 EXIT_USAGE = 2
 EXIT_DATA = 1
@@ -16,26 +18,21 @@ def main(argv=None):
     except ConfigError as error:
         print(f"ошибка: {error}", file=sys.stderr)
         return EXIT_USAGE
-    if config.test_mode:
-        print("ошибка: тестовый режим ещё не реализован", file=sys.stderr)
-        return EXIT_USAGE
     try:
-        print_direct_dependencies(config)
-    except RepoError as error:
+        print(run(config))
+    except (RepoError, GraphError) as error:
         print(f"ошибка: {error}", file=sys.stderr)
         return EXIT_DATA
     return 0
 
 
-def print_direct_dependencies(config):
-    """Найти пакет в репозитории и вывести его прямые зависимости."""
-    index = load_index(config.repo)
-    record = index.find(config.package, config.version)
-    groups = record.dependencies
-    print(f"{record.name} {record.version}: "
-          f"прямых зависимостей {len(groups)}")
-    for group in groups:
-        print(f"  {group.kind}: {group}")
+def run(config):
+    """Выполнить действие, выбранное параметром ``--mode``."""
+    source = make_source(config)
+    if config.mode == "deps":
+        return "\n".join(source.direct_lines(config.package))
+    graph = build_graph(source, config.package, config.filter)
+    return format_graph(graph)
 
 
 if __name__ == "__main__":

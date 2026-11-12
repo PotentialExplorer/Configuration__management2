@@ -10,12 +10,16 @@ REAL_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9+.-]+$")
 TEST_NAME_RE = re.compile(r"^[A-Z]+$")
 VERSION_RE = re.compile(r"^(\d+:)?[0-9][A-Za-z0-9.+~-]*$")
 URL_SCHEMES = ("http", "https", "file")
+MODES = ("deps", "graph")
+DEFAULT_MODE = "graph"
 NETWORK_SCHEMES = ("http", "https")
 ARGPARSE_MESSAGES = {
     "unrecognized arguments": "неизвестные аргументы",
     "expected one argument": "ожидается одно значение",
     "argument ": "параметр ",
     "ignored explicit argument": "лишнее значение",
+    "invalid choice": "недопустимое значение",
+    "choose from": "допустимые",
 }
 
 
@@ -32,6 +36,8 @@ class Config:
     :ivar test_mode: режим работы с тестовым репозиторием.
     :ivar version: версия пакета или ``None``.
     :ivar filter: подстрока для фильтрации пакетов или ``None``.
+    :ivar mode: что выводить: ``deps`` — прямые зависимости,
+        ``graph`` — граф с учётом транзитивности.
     """
 
     package: str
@@ -39,6 +45,7 @@ class Config:
     test_mode: bool = False
     version: str | None = None
     filter: str | None = None
+    mode: str = DEFAULT_MODE
 
 
 class RussianArgumentParser(argparse.ArgumentParser):
@@ -68,6 +75,10 @@ def build_parser():
     )
     parser.add_argument("--version", help="версия пакета")
     parser.add_argument("--filter", help="исключать пакеты с подстрокой")
+    parser.add_argument(
+        "--mode", choices=MODES, default=DEFAULT_MODE,
+        help="deps — прямые зависимости, graph — полный граф",
+    )
     return parser
 
 
@@ -79,7 +90,7 @@ def parse_args(argv=None):
     ns = build_parser().parse_args(argv)
     config = Config(
         package=ns.package, repo=ns.repo, test_mode=ns.test_mode,
-        version=ns.version, filter=ns.filter,
+        version=ns.version, filter=ns.filter, mode=ns.mode,
     )
     validate(config)
     return config
