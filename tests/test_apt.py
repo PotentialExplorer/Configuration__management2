@@ -154,7 +154,8 @@ class MainTest(unittest.TestCase):
     def test_tar(self):
         """Прямые зависимости tar из реальных данных Ubuntu 24.04."""
         code, out, _ = self.run_main(
-            ["--package", "tar", "--repo", url_of(SAMPLE)])
+            ["--package", "tar", "--repo", url_of(SAMPLE),
+             "--mode", "deps"])
         self.assertEqual(code, 0)
         self.assertEqual(out.splitlines(), [
             "tar 1.35+dfsg-3ubuntu0.4: прямых зависимостей 3",
