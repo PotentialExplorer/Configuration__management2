@@ -11,7 +11,6 @@ TEST_NAME_RE = re.compile(r"^[A-Z]+$")
 VERSION_RE = re.compile(r"^(\d+:)?[0-9][A-Za-z0-9.+~-]*$")
 URL_SCHEMES = ("http", "https", "file")
 NETWORK_SCHEMES = ("http", "https")
-NOT_SET = "<не задан>"
 ARGPARSE_MESSAGES = {
     "unrecognized arguments": "неизвестные аргументы",
     "expected one argument": "ожидается одно значение",
@@ -40,16 +39,6 @@ class Config:
     test_mode: bool = False
     version: str | None = None
     filter: str | None = None
-
-    def as_pairs(self):
-        """Вернуть параметры как список пар (ключ, значение)."""
-        return [
-            ("package", self.package),
-            ("repo", self.repo),
-            ("test_mode", str(self.test_mode).lower()),
-            ("version", self.version or NOT_SET),
-            ("filter", self.filter or NOT_SET),
-        ]
 
 
 class RussianArgumentParser(argparse.ArgumentParser):
