@@ -10,7 +10,7 @@ REAL_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9+.-]+$")
 TEST_NAME_RE = re.compile(r"^[A-Z]+$")
 VERSION_RE = re.compile(r"^(\d+:)?[0-9][A-Za-z0-9.+~-]*$")
 URL_SCHEMES = ("http", "https", "file")
-MODES = ("deps", "graph", "order")
+MODES = ("deps", "graph", "order", "d2")
 DEFAULT_MODE = "graph"
 NETWORK_SCHEMES = ("http", "https")
 ARGPARSE_MESSAGES = {
@@ -38,7 +38,8 @@ class Config:
     :ivar filter: подстрока для фильтрации пакетов или ``None``.
     :ivar mode: что выводить: ``deps`` — прямые зависимости,
         ``graph`` — граф с учётом транзитивности, ``order`` — порядок
-        загрузки зависимостей.
+        загрузки зависимостей, ``d2`` — описание графа на языке D2.
+    :ivar output: файл для сохранения описания D2 или ``None``.
     """
 
     package: str
@@ -47,6 +48,7 @@ class Config:
     version: str | None = None
     filter: str | None = None
     mode: str = DEFAULT_MODE
+    output: str | None = None
 
 
 class RussianArgumentParser(argparse.ArgumentParser):
@@ -79,7 +81,11 @@ def build_parser():
     parser.add_argument(
         "--mode", choices=MODES, default=DEFAULT_MODE,
         help="deps — прямые зависимости, graph — полный граф, "
-        "order — порядок загрузки",
+        "order — порядок загрузки, d2 — описание на языке D2",
+    )
+    parser.add_argument(
+        "--output", metavar="FILE",
+        help="сохранить описание D2 в файл (только с --mode d2)",
     )
     return parser
 
@@ -93,6 +99,7 @@ def parse_args(argv=None):
     config = Config(
         package=ns.package, repo=ns.repo, test_mode=ns.test_mode,
         version=ns.version, filter=ns.filter, mode=ns.mode,
+        output=ns.output,
     )
     validate(config)
     return config
@@ -107,6 +114,7 @@ def validate(config):
     _check_repo(config)
     _check_version(config)
     _check_filter(config.filter)
+    _check_output(config)
 
 
 def _check_package(config):
@@ -182,3 +190,16 @@ def _check_filter(substring):
             "подстрока фильтра (--filter) не может быть пустой "
             "или содержать пробелы"
         )
+
+
+def _check_output(config):
+    """Проверить файл для сохранения описания D2."""
+    if config.output is None:
+        return
+    if config.mode != "d2":
+        raise ConfigError("--output используется только вместе с --mode d2")
+    folder = os.path.dirname(os.path.abspath(config.output))
+    if not os.path.isdir(folder):
+        raise ConfigError(f"папка '{folder}' для --output не существует")
+    if os.path.isdir(config.output):
+        raise ConfigError(f"--output '{config.output}' — это папка")
