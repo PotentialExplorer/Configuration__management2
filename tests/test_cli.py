@@ -42,17 +42,6 @@ class ParseArgsTest(unittest.TestCase):
                              "--test-mode"])
         self.assertTrue(config.test_mode)
 
-    def test_key_value_output(self):
-        """Параметры печатаются в формате ключ=значение."""
-        out = io.StringIO()
-        with contextlib.redirect_stdout(out):
-            code = main(["--package", "tar", "--repo", URL])
-        self.assertEqual(code, 0)
-        self.assertEqual(out.getvalue().splitlines(), [
-            "package=tar", f"repo={URL}", "test_mode=false",
-            "version=<не задан>", "filter=<не задан>",
-        ])
-
 
 class ErrorTest(unittest.TestCase):
     """Ошибки для каждого параметра."""

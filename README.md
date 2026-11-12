@@ -19,6 +19,34 @@
 При запуске все параметры выводятся в формате `ключ=значение`.
 Ошибки в любом параметре выводятся как `ошибка: ...`, код возврата 2.
 
+## Этап 2. Сбор данных
+
+`--repo` — URL индекса пакетов Ubuntu, например
+`http://archive.ubuntu.com/ubuntu/dists/noble/main/binary-amd64/Packages.gz`.
+Поддерживаются `Packages`, `Packages.gz` и `Packages.xz` (сжатие
+определяется по сигнатуре), а также `file://` для локальных копий.
+
+- Индекс разбирается вручную (формат RFC 822): блоки «поле: значение»,
+  строки-продолжения, поля `Pre-Depends` и `Depends`.
+- Берётся заданная версия (`--version`); без неё — самая новая по
+  правилам сравнения версий Debian (реализовано в `debversion.py`,
+  проверено против `dpkg --compare-versions` на 596 парах).
+- Выводятся все прямые зависимости с ограничениями версий и
+  альтернативами `a | b`.
+
+```
+$ ./run.sh --package bash --repo file://$PWD/tests/fixtures/ubuntu-noble-sample.packages
+bash 5.2.21-2ubuntu4: прямых зависимостей 4
+  Pre-Depends: libc6 (>= 2.38)
+  Pre-Depends: libtinfo6 (>= 6)
+  Depends: base-files (>= 2.1.12)
+  Depends: debianutils (>= 5.6-0.1)
+```
+
+Файл `tests/fixtures/ubuntu-noble-sample.packages` — 50 реальных
+записей из `/var/lib/dpkg/status` Ubuntu 24.04 (пакеты tar, bash,
+coreutils, grep, gzip, apt и все их зависимости).
+
 ## Сборка и запуск
 
 Требуется Python 3.10+, сторонние пакеты не нужны.

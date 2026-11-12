@@ -1,0 +1,281 @@
+Package: apt
+Architecture: amd64
+Version: 2.8.3
+Provides: apt-transport-https (= 2.8.3)
+Depends: base-passwd (>= 3.6.1) | adduser, gpgv, libapt-pkg6.0t64 (>= 2.8.3),
+ ubuntu-keyring, libc6 (>= 2.38), libgcc-s1 (>= 3.3.1),
+ libgnutls30t64 (>= 3.8.1), libseccomp2 (>= 2.4.2), libstdc++6 (>= 13.1),
+ libsystemd0
+
+Package: base-files
+Architecture: amd64
+Version: 13ubuntu10.5
+Provides: base, usr-is-merged
+Depends: libc6 (>= 2.34), libcrypt1 (>= 1:4.4.10-10ubuntu3)
+Pre-Depends: awk
+
+Package: base-passwd
+Architecture: amd64
+Version: 3.6.3build1
+Depends: libc6 (>= 2.34), libdebconfclient0 (>= 0.145), libselinux1 (>= 3.1~)
+
+Package: bash
+Architecture: amd64
+Version: 5.2.21-2ubuntu4
+Depends: base-files (>= 2.1.12), debianutils (>= 5.6-0.1)
+Pre-Depends: libc6 (>= 2.38), libtinfo6 (>= 6)
+
+Package: coreutils
+Architecture: amd64
+Version: 9.4-3ubuntu6.3
+Pre-Depends: libacl1 (>= 2.2.23), libattr1 (>= 1:2.4.48), libc6 (>= 2.38),
+ libgmp10 (>= 2:6.3.0+dfsg), libselinux1 (>= 3.1~), libssl3t64 (>= 3.0.0)
+
+Package: debianutils
+Architecture: amd64
+Version: 5.17build1
+Pre-Depends: libc6 (>= 2.38)
+
+Package: dpkg
+Architecture: amd64
+Version: 1.22.6ubuntu6.6
+Depends: tar (>= 1.28-1)
+Pre-Depends: libbz2-1.0, libc6 (>= 2.38), liblzma5 (>= 5.4.0),
+ libmd0 (>= 0.0.0), libselinux1 (>= 3.1~), libzstd1 (>= 1.5.5),
+ zlib1g (>= 1:1.1.4)
+
+Package: gcc-14-base
+Architecture: amd64
+Version: 14.2.0-4ubuntu2~24.04.1
+
+Package: gpgv
+Architecture: amd64
+Version: 2.4.4-2ubuntu17.6
+Depends: libassuan0 (>= 2.5.0), libbz2-1.0, libc6 (>= 2.38),
+ libgcrypt20 (>= 1.10.0), libgpg-error0 (>= 1.46), libnpth0t64 (>= 0.90),
+ zlib1g (>= 1:1.1.4)
+
+Package: grep
+Architecture: amd64
+Version: 3.11-4build1
+Provides: rgrep
+Pre-Depends: libc6 (>= 2.38), libpcre2-8-0 (>= 10.32)
+
+Package: gzip
+Architecture: amd64
+Version: 1.12-1ubuntu3.2
+Depends: dpkg (>= 1.15.4) | install-info
+Pre-Depends: libc6 (>= 2.38)
+
+Package: libacl1
+Architecture: amd64
+Version: 2.3.2-1build1.1
+Depends: libc6 (>= 2.38)
+
+Package: libapt-pkg6.0t64
+Architecture: amd64
+Version: 2.8.3
+Provides: libapt-pkg (= 2.8.3), libapt-pkg6.0 (= 2.8.3)
+Depends: libbz2-1.0, libc6 (>= 2.38), libgcc-s1 (>= 3.3.1),
+ libgcrypt20 (>= 1.10.0), liblz4-1 (>= 0.0~r127),
+ liblzma5 (>= 5.1.1alpha+20120614), libstdc++6 (>= 13.1),
+ libsystemd0 (>= 221), libudev1 (>= 183), libxxhash0 (>= 0.7.1),
+ libzstd1 (>= 1.5.5), zlib1g (>= 1:1.2.2.3)
+
+Package: libassuan0
+Architecture: amd64
+Version: 2.5.6-1build1
+Depends: libc6 (>= 2.38), libgpg-error0 (>= 1.33)
+
+Package: libattr1
+Architecture: amd64
+Version: 1:2.5.2-1ubuntu0.1
+Depends: libc6 (>= 2.4)
+
+Package: libbz2-1.0
+Architecture: amd64
+Version: 1.0.8-5.1ubuntu0.1
+Depends: libc6 (>= 2.4)
+
+Package: libc6
+Architecture: amd64
+Version: 2.39-0ubuntu8.9
+Depends: libgcc-s1
+
+Package: libcap2
+Architecture: amd64
+Version: 1:2.66-5ubuntu2.4
+Depends: libc6 (>= 2.38)
+
+Package: libcrypt1
+Architecture: amd64
+Version: 1:4.4.36-4build1
+Depends: libc6 (>= 2.38)
+
+Package: libdebconfclient0
+Architecture: amd64
+Version: 0.271ubuntu3
+Depends: libc6 (>= 2.38)
+
+Package: libffi8
+Architecture: amd64
+Version: 3.4.6-1build1
+Provides: libffi8ubuntu1 (= 3.4.6-1build1)
+Depends: libc6 (>= 2.34)
+
+Package: libgcc-s1
+Architecture: amd64
+Version: 14.2.0-4ubuntu2~24.04.1
+Provides: libgcc1 (= 1:14.2.0-4ubuntu2~24.04.1)
+Depends: gcc-14-base (= 14.2.0-4ubuntu2~24.04.1), libc6 (>= 2.35)
+
+Package: libgcrypt20
+Architecture: amd64
+Version: 1.10.3-2ubuntu0.2
+Depends: libc6 (>= 2.38), libgpg-error0 (>= 1.27)
+
+Package: libgmp10
+Architecture: amd64
+Version: 2:6.3.0+dfsg-2ubuntu6.1
+Depends: libc6 (>= 2.38)
+
+Package: libgnutls30t64
+Architecture: amd64
+Version: 3.8.3-1.1ubuntu3.6
+Provides: libgnutls30 (= 3.8.3-1.1ubuntu3.6)
+Depends: libc6 (>= 2.38), libgmp10 (>= 2:6.3.0+dfsg), libhogweed6t64 (>= 3.6),
+ libidn2-0 (>= 2.0.0), libnettle8t64 (>= 3.9~), libp11-kit0 (>= 0.25.1),
+ libtasn1-6 (>= 4.14), libunistring5 (>= 1.1)
+
+Package: libgpg-error0
+Architecture: amd64
+Version: 1.47-3build2.1
+Depends: libc6 (>= 2.38)
+
+Package: libhogweed6t64
+Architecture: amd64
+Version: 3.9.1-2.2build1.1
+Provides: libhogweed6 (= 3.9.1-2.2build1.1)
+Depends: libc6 (>= 2.14), libgmp10 (>= 2:6.3.0+dfsg), libnettle8t64
+
+Package: libidn2-0
+Architecture: amd64
+Version: 2.3.7-2build1.1
+Depends: libc6 (>= 2.14), libunistring5 (>= 1.1)
+
+Package: liblz4-1
+Architecture: amd64
+Version: 1.9.4-1build1.1
+Depends: libc6 (>= 2.14)
+
+Package: liblzma5
+Architecture: amd64
+Version: 5.6.1+really5.4.5-1ubuntu0.4
+Depends: libc6 (>= 2.34)
+
+Package: libmd0
+Architecture: amd64
+Version: 1.1.0-2build1.1
+Depends: libc6 (>= 2.33)
+
+Package: libnettle8t64
+Architecture: amd64
+Version: 3.9.1-2.2build1.1
+Provides: libnettle8 (= 3.9.1-2.2build1.1)
+Depends: libc6 (>= 2.17)
+
+Package: libnpth0t64
+Architecture: amd64
+Version: 1.6-3.1build1
+Provides: libnpth0 (= 1.6-3.1build1)
+Depends: libc6 (>= 2.34)
+
+Package: libp11-kit0
+Architecture: amd64
+Version: 0.25.3-4ubuntu2.2
+Depends: libc6 (>= 2.38), libffi8 (>= 3.4)
+
+Package: libpcre2-8-0
+Architecture: amd64
+Version: 10.42-4ubuntu2.1
+Depends: libc6 (>= 2.34)
+
+Package: libseccomp2
+Architecture: amd64
+Version: 2.5.5-1ubuntu3.1
+Depends: libc6 (>= 2.4)
+
+Package: libselinux1
+Architecture: amd64
+Version: 3.5-2ubuntu2.1
+Depends: libc6 (>= 2.38), libpcre2-8-0 (>= 10.22)
+
+Package: libssl3t64
+Architecture: amd64
+Version: 3.0.13-0ubuntu3.16
+Provides: libssl3 (= 3.0.13-0ubuntu3.16)
+Depends: libc6 (>= 2.38)
+
+Package: libstdc++6
+Architecture: amd64
+Version: 14.2.0-4ubuntu2~24.04.1
+Depends: gcc-14-base (= 14.2.0-4ubuntu2~24.04.1), libc6 (>= 2.38),
+ libgcc-s1 (>= 4.3)
+
+Package: libsystemd0
+Architecture: amd64
+Version: 255.4-1ubuntu8.18
+Depends: libc6 (>= 2.38), libcap2 (>= 1:2.10), libgcrypt20 (>= 1.10.0),
+ liblz4-1 (>= 0.0~r122), liblzma5 (>= 5.1.1alpha+20120614),
+ libzstd1 (>= 1.5.5)
+
+Package: libtasn1-6
+Architecture: amd64
+Version: 4.19.0-3ubuntu0.24.04.2
+Depends: libc6 (>= 2.38)
+
+Package: libtinfo6
+Architecture: amd64
+Version: 6.4+20240113-1ubuntu2.2
+Depends: libc6 (>= 2.34)
+
+Package: libudev1
+Architecture: amd64
+Version: 255.4-1ubuntu8.18
+Depends: libc6 (>= 2.38), libcap2 (>= 1:2.10)
+
+Package: libunistring5
+Architecture: amd64
+Version: 1.1-2build1.1
+Depends: libc6 (>= 2.34)
+
+Package: libxxhash0
+Architecture: amd64
+Version: 0.8.2-2build1
+Depends: libc6 (>= 2.14)
+
+Package: libzstd1
+Architecture: amd64
+Version: 1.5.5+dfsg2-2build1.1
+Depends: libc6 (>= 2.34)
+
+Package: mawk
+Architecture: amd64
+Version: 1.3.4.20240123-1build1
+Provides: awk
+Depends: libc6 (>= 2.38)
+
+Package: tar
+Architecture: amd64
+Version: 1.35+dfsg-3ubuntu0.4
+Pre-Depends: libacl1 (>= 2.2.23), libc6 (>= 2.38), libselinux1 (>= 3.1~)
+
+Package: ubuntu-keyring
+Architecture: all
+Version: 2023.11.28.1
+
+Package: zlib1g
+Architecture: amd64
+Version: 1:1.3.dfsg-3.1ubuntu2.3
+Provides: libz1
+Depends: libc6 (>= 2.14)

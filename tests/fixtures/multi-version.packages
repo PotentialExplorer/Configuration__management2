@@ -1,0 +1,28 @@
+Package: demo-app
+Architecture: amd64
+Version: 1.0-1
+Depends: demo-lib (>= 1.0)
+
+Package: demo-app
+Architecture: amd64
+Version: 1.10-1
+Depends: demo-lib (>= 1.10),
+ demo-extra | demo-alt
+Description: synthetic package for tests
+ This entry is split over several lines:
+ the Depends value continues on the next line.
+
+Package: demo-app
+Architecture: amd64
+Version: 1.10~rc1-1
+Depends: demo-lib
+
+Package: demo-lib
+Architecture: amd64
+Version: 1.10-1
+Depends: libc6:any (>= 2.38) [amd64]
+
+Package: demo-provider
+Architecture: amd64
+Version: 2:0.5-1
+Provides: demo-alt (= 1.0)
