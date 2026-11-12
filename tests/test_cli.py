@@ -3,6 +3,7 @@
 import contextlib
 import io
 import os
+import pathlib
 import tempfile
 import unittest
 
@@ -42,7 +43,11 @@ class ParseArgsTest(unittest.TestCase):
                              "--test-mode"])
         self.assertTrue(config.test_mode)
 
-
+    def test_file_url(self):
+        """URL file:// из pathlib подходит и в Linux, и в Windows."""
+        url = pathlib.Path(__file__).resolve().as_uri()
+        config = parse_args(["--package", "tar", "--repo", url])
+        self.assertEqual(config.repo, url)
 class ErrorTest(unittest.TestCase):
     """Ошибки для каждого параметра."""
 

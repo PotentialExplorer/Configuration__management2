@@ -5,6 +5,7 @@ import os
 import re
 from dataclasses import dataclass
 from urllib.parse import urlparse
+from urllib.request import url2pathname
 
 REAL_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9+.-]+$")
 TEST_NAME_RE = re.compile(r"^[A-Z]+$")
@@ -164,10 +165,10 @@ def _check_url(url):
         )
     if parts.scheme in NETWORK_SCHEMES and not parts.netloc:
         raise ConfigError(f"в URL '{url}' не указан адрес сервера")
-    if parts.scheme == "file" and not os.path.isfile(parts.path):
-        raise ConfigError(f"файл '{parts.path}' из URL не найден")
-
-
+    if parts.scheme == "file":
+        local = url2pathname(parts.path)
+        if not os.path.isfile(local):
+            raise ConfigError(f"файл '{local}' из URL не найден")
 def _check_version(config):
     """Проверить версию пакета."""
     if config.version is None:
