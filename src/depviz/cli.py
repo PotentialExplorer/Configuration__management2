@@ -10,7 +10,7 @@ REAL_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9+.-]+$")
 TEST_NAME_RE = re.compile(r"^[A-Z]+$")
 VERSION_RE = re.compile(r"^(\d+:)?[0-9][A-Za-z0-9.+~-]*$")
 URL_SCHEMES = ("http", "https", "file")
-MODES = ("deps", "graph")
+MODES = ("deps", "graph", "order")
 DEFAULT_MODE = "graph"
 NETWORK_SCHEMES = ("http", "https")
 ARGPARSE_MESSAGES = {
@@ -37,7 +37,8 @@ class Config:
     :ivar version: версия пакета или ``None``.
     :ivar filter: подстрока для фильтрации пакетов или ``None``.
     :ivar mode: что выводить: ``deps`` — прямые зависимости,
-        ``graph`` — граф с учётом транзитивности.
+        ``graph`` — граф с учётом транзитивности, ``order`` — порядок
+        загрузки зависимостей.
     """
 
     package: str
@@ -77,7 +78,8 @@ def build_parser():
     parser.add_argument("--filter", help="исключать пакеты с подстрокой")
     parser.add_argument(
         "--mode", choices=MODES, default=DEFAULT_MODE,
-        help="deps — прямые зависимости, graph — полный граф",
+        help="deps — прямые зависимости, graph — полный граф, "
+        "order — порядок загрузки",
     )
     return parser
 

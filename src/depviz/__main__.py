@@ -5,6 +5,7 @@ import sys
 from .apt_index import RepoError
 from .cli import ConfigError, parse_args
 from .graph import GraphError, build_graph, format_graph
+from .order import format_order, load_order
 from .sources import make_source
 
 EXIT_USAGE = 2
@@ -32,6 +33,8 @@ def run(config):
     if config.mode == "deps":
         return "\n".join(source.direct_lines(config.package))
     graph = build_graph(source, config.package, config.filter)
+    if config.mode == "order":
+        return format_order(graph, load_order(graph))
     return format_graph(graph)
 
 
