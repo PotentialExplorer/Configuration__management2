@@ -1,0 +1,26 @@
+direction: down
+
+"coreutils": {
+  style.fill: "#ffe08a"
+  style.bold: true
+}
+
+"coreutils" -> "libacl1"
+"coreutils" -> "libattr1"
+"coreutils" -> "libc6"
+"coreutils" -> "libgmp10"
+"coreutils" -> "libselinux1"
+"coreutils" -> "libssl3t64"
+"libacl1" -> "libc6"
+"libc6" -> "libgcc-s1"
+"libgcc-s1" -> "gcc-14-base"
+"libgcc-s1" -> "libc6": цикл {
+  style.stroke: "#d33c3c"
+  style.stroke-dash: 4
+}
+"libattr1" -> "libc6"
+"libgmp10" -> "libc6"
+"libselinux1" -> "libc6"
+"libselinux1" -> "libpcre2-8-0"
+"libpcre2-8-0" -> "libc6"
+"libssl3t64" -> "libc6"
